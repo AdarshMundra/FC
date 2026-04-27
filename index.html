@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitness Plan — 85kg to 75kg</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F3EE;
+    --surface: #FFFFFF;
+    --surface2: #EEEAE2;
+    --border: rgba(0,0,0,0.08);
+    --text: #1A1A18;
+    --text2: #6B6860;
+    --text3: #9E9B94;
+    --green-bg: #E1F5EE;
+    --green-text: #085041;
+    --green-accent: #0F6E56;
+    --amber-bg: #FAEEDA;
+    --amber-text: #633806;
+    --amber-accent: #854F0B;
+    --purple-bg: #EEEDFE;
+    --purple-text: #3C3489;
+    --purple-accent: #534AB7;
+    --accent: #1A1A18;
+  }
+  [data-theme="dark"] {
+    --bg: #111110;
+    --surface: #1C1C1A;
+    --surface2: #242422;
+    --border: rgba(255,255,255,0.08);
+    --text: #F0EDE6;
+    --text2: #9E9B94;
+    --text3: #6B6860;
+    --green-bg: #04342C;
+    --green-text: #9FE1CB;
+    --green-accent: #5DCAA5;
+    --amber-bg: #412402;
+    --amber-text: #FAC775;
+    --amber-accent: #EF9F27;
+    --purple-bg: #26215C;
+    --purple-text: #CECBF6;
+    --purple-accent: #AFA9EC;
+    --accent: #F0EDE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    backdrop-filter: blur(12px);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .logo span { color: var(--green-accent); }
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .weight-badge {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    background: var(--surface2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+  .weight-badge strong { color: var(--text); }
+  .toggle-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    transition: all 0.2s;
+    color: var(--text);
+  }
+  .toggle-btn:hover { background: var(--surface2); transform: scale(1.05); }
+  .hero {
+    padding: 3rem 2rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    background: var(--green-bg);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  h1 em { font-style: normal; color: var(--green-accent); }
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text2);
+    line-height: 1.6;
+    max-width: 520px;
+    margin-bottom: 2rem;
+  }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 3rem;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.1rem 1rem;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .stat:hover { transform: translateY(-2px); }
+  .stat-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .stat-lbl { font-size: 11px; color: var(--text3); margin-top: 3px; }
+  .main { max-width: 900px; margin: 0 auto; padding: 0 2rem 4rem; }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+  .day-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .day-card:hover { transform: translateY(-1px); }
+  .day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+  }
+  .day-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .day-meta { font-size: 12px; color: var(--text3); margin-top: 1px; }
+  .chevron {
+    font-size: 12px;
+    color: var(--text3);
+    transition: transform 0.25s;
+  }
+  .day-card.open .chevron { transform: rotate(180deg); }
+  .day-body { display: none; }
+  .day-card.open .day-body { display: block; }
+  .block {
+    border-bottom: 1px solid var(--border);
+  }
+  .block:last-child { border-bottom: none; }
+  .block-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .block-icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .block-icon.ex { background: var(--green-bg); }
+  .block-icon.cardio { background: var(--amber-bg); }
+  .block-icon.abs { background: var(--purple-bg); }
+  .block-name {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+  .block-name.ex { color: var(--green-text); }
+  .block-name.cardio { color: var(--amber-text); }
+  .block-name.abs { color: var(--purple-text); }
+  .block-time {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .block-time.ex { background: var(--green-bg); color: var(--green-text); }
+  .block-time.cardio { background: var(--amber-bg); color: var(--amber-text); }
+  .block-time.abs { background: var(--purple-bg); color: var(--purple-text); }
+  .ex-list { list-style: none; }
+  .ex-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+    color: var(--text2);
+    transition: background 0.15s;
+  }
+  .ex-list li:last-child { border-bottom: none; }
+  .ex-list li:hover { background: var(--surface2); }
+  .ex-list li span {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--surface2);
+    padding: 2px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    margin-left: 8px;
+  }
+  .rest-day {
+    background: var(--surface2);
+    border-radius: 18px;
+    border: 1px dashed var(--border);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text2);
+    font-size: 14px;
+  }
+  .diet-section { margin-top: 3rem; }
+  .meal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .meal-time-header {
+    padding: 10px 16px;
+    background: var(--surface2);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    border-bottom: 1px solid var(--border);
+  }
+  .meal-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 70px;
+    gap: 8px;
+    padding: 9px 16px;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    font-size: 13.5px;
+    transition: background 0.15s;
+  }
+  .meal-row:hover { background: var(--surface2); }
+  .meal-row:last-child { border-bottom: none; }
+  .meal-opt { font-size: 11px; color: var(--text3); }
+  .meal-name { color: var(--text2); }
+  .meal-kcal { font-size: 12px; color: var(--text3); text-align: right; }
+  .tip-box {
+    background: var(--amber-bg);
+    border-left: 3px solid var(--amber-accent);
+    border-radius: 0 12px 12px 0;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--amber-text);
+    margin-bottom: 1.25rem;
+  }
+  .avoid-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+  .avoid-tag {
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    background: var(--surface);
+  }
+  .avoid-tag.red { background: #FCEBEB; color: #A32D2D; border-color: #F09595; }
+  [data-theme="dark"] .avoid-tag.red { background: #501313; color: #F09595; border-color: #791F1F; }
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 12px;
+    color: var(--text3);
+    border-top: 1px solid var(--border);
+  }
+  @media (max-width: 768px) {
+    header { padding: 0 1rem; height: 54px; }
+    .weight-badge { display: none; }
+    .logo { font-size: 15px; }
+    .hero { padding: 1.5rem 1rem 1rem; }
+    h1 { font-size: clamp(1.6rem, 8vw, 2.4rem); }
+    .hero-sub { font-size: 14px; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+    .stat { padding: 0.8rem 0.6rem; }
+    .stat-val { font-size: 20px; }
+    .main { padding: 0 1rem 3rem; }
+    .section-title { font-size: 18px; }
+    .day-card { border-radius: 14px; margin-bottom: 12px; }
+    .day-header { padding: 12px 14px; }
+    .day-title { font-size: 14px; }
+    .day-meta { font-size: 11px; }
+    .block-header { padding: 8px 14px; gap: 8px; }
+    .block-icon { width: 24px; height: 24px; font-size: 11px; }
+    .block-name { font-size: 11px; }
+    .block-time { font-size: 10px; padding: 2px 8px; }
+    .ex-list li { padding: 8px 14px; font-size: 13px; flex-wrap: wrap; gap: 4px; }
+    .ex-list li span { font-size: 11px; padding: 2px 6px; margin-left: 0; }
+    .meal-card { border-radius: 12px; }
+    .meal-row { grid-template-columns: 80px 1fr; gap: 6px; padding: 8px 12px; font-size: 13px; }
+    .meal-kcal { display: none; }
+    .meal-time-header { font-size: 10px; padding: 8px 12px; }
+    .rest-day { padding: 1rem 1.25rem; font-size: 13px; border-radius: 14px; }
+    .tip-box { font-size: 12px; padding: 10px 12px; }
+    .avoid-tag { font-size: 11px; padding: 4px 10px; }
+    footer { font-size: 11px; padding: 1.5rem 1rem; }
+    .diet-section { margin-top: 2rem; }
+  }
+  @media (max-width: 400px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .stat-val { font-size: 18px; }
+    .stat-lbl { font-size: 10px; }
+    h1 { font-size: 1.5rem; }
+    .ex-list li { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">FIT<span>PLAN</span></div>
+  <div class="header-right">
+    <div class="weight-badge"><strong>85 kg</strong> → <strong>75 kg</strong></div>
+    <button class="toggle-btn" id="themeToggle" title="Toggle dark mode">☀️</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-tag">Vegetarian · Beginner · Light legs on Day 2, 4, 6</div>
+  <h1>Your 10-week<br><em>transformation</em> plan</h1>
+  <p class="hero-sub">Every day has a 40-min exercise block (with light leg work) followed by either cardio or abs — alternating each day. Built around your leg pain and vegetarian diet.</p>
+
+  <div class="stats-row">
+    <div class="stat"><div class="stat-val">85 kg</div><div class="stat-lbl">Current weight</div></div>
+    <div class="stat"><div class="stat-val">75 kg</div><div class="stat-lbl">Target weight</div></div>
+    <div class="stat"><div class="stat-val">~10 wk</div><div class="stat-lbl">Estimated time</div></div>
+    <div class="stat"><div class="stat-val">1,600</div><div class="stat-lbl">Daily calories</div></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="section-title">Weekly workout plan</div>
+
+  <!-- Day 1 -->
+  <div class="day-card open" id="day1">
+    <div class="day-header" onclick="toggleDay('day1')">
+      <div><div class="day-title">Day 1 — Monday</div><div class="day-meta">Chest & Triceps + Cardio</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="day-body">
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon ex">💪</div>
+          <span class="block-name ex">Exercise</span>
+          <span class="block-time ex">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Machine chest press <span>3 × 12</span></li>
+          <li>Cable chest fly <span>3 × 12</span></li>
+          <li>Tricep pushdown (cable) <span>3 × 12</span></li>
+          <li>Overhead tricep extension <span>3 × 10</span></li>
+          <li>Dumbbell chest press <span>3 × 10</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon cardio">🚴</div>
+          <span class="block-name cardio">Cardio</span>
+          <span class="block-time cardio">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Treadmill brisk walk (incline 2–3) <span>20 min</span></li>
+          <li>Stationary cycle (steady pace) <span>12 min</span></li>
+          <li>Elliptical cool-down <span>8 min</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 2 -->
+  <div class="day-card" id="day2">
+    <div class="day-header" onclick="toggleDay('day2')">
+      <div><div class="day-title">Day 2 — Tuesday</div><div class="day-meta">Back & Biceps + Light Legs + Abs</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="day-body">
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon ex">💪</div>
+          <span class="block-name ex">Exercise</span>
+          <span class="block-time ex">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Lat pulldown (machine) <span>3 × 12</span></li>
+          <li>Seated cable row <span>3 × 12</span></li>
+          <li>Dumbbell bicep curl <span>3 × 12</span></li>
+          <li>Hammer curl <span>3 × 10</span></li>
+          <li>Single-arm dumbbell row <span>3 × 10</span></li>
+          <li style="color:var(--purple-text);background:var(--purple-bg)">Seated leg curl (light weight) <span style="background:var(--purple-bg);color:var(--purple-text)">3 × 12</span></li>
+          <li style="color:var(--purple-text);background:var(--purple-bg)">Seated leg extension (light weight) <span style="background:var(--purple-bg);color:var(--purple-text)">3 × 12</span></li>
+          <li style="color:var(--purple-text);background:var(--purple-bg)">Hip abduction machine (seated) <span style="background:var(--purple-bg);color:var(--purple-text)">3 × 15</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon abs">🔥</div>
+          <span class="block-name abs">Abs</span>
+          <span class="block-time abs">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Crunches <span>4 × 20</span></li>
+          <li>Leg raises (lying flat) <span>4 × 15</span></li>
+          <li>Plank hold <span>4 × 30 sec</span></li>
+          <li>Bicycle crunches <span>3 × 16</span></li>
+          <li>Dead bug <span>3 × 12</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 3 -->
+  <div class="day-card" id="day3">
+    <div class="day-header" onclick="toggleDay('day3')">
+      <div><div class="day-title">Day 3 — Wednesday</div><div class="day-meta">Shoulders + Cardio</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="day-body">
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon ex">💪</div>
+          <span class="block-name ex">Exercise</span>
+          <span class="block-time ex">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Seated dumbbell shoulder press <span>3 × 12</span></li>
+          <li>Lateral raises <span>3 × 12</span></li>
+          <li>Front raises <span>3 × 10</span></li>
+          <li>Face pulls (cable) <span>3 × 12</span></li>
+          <li>Arnold press <span>3 × 10</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon cardio">🚴</div>
+          <span class="block-name cardio">Cardio</span>
+          <span class="block-time cardio">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Elliptical (moderate resistance) <span>20 min</span></li>
+          <li>Stationary cycle <span>12 min</span></li>
+          <li>Treadmill walk flat (cool-down) <span>8 min</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 4 -->
+  <div class="day-card" id="day4">
+    <div class="day-header" onclick="toggleDay('day4')">
+      <div><div class="day-title">Day 4 — Thursday</div><div class="day-meta">Full Upper Body + Light Legs + Abs</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="day-body">
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon ex">💪</div>
+          <span class="block-name ex">Exercise</span>
+          <span class="block-time ex">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Machine chest press <span>3 × 10</span></li>
+          <li>Lat pulldown <span>3 × 10</span></li>
+          <li>Shoulder press <span>3 × 10</span></li>
+          <li>Dumbbell row <span>3 × 10</span></li>
+          <li>Tricep pushdown <span>3 × 10</span></li>
+          <li style="color:var(--purple-text);background:var(--purple-bg)">Seated leg extension (light weight) <span style="background:var(--purple-bg);color:var(--purple-text)">3 × 12</span></li>
+          <li style="color:var(--purple-text);background:var(--purple-bg)">Hip adduction machine (seated) <span style="background:var(--purple-bg);color:var(--purple-text)">3 × 15</span></li>
+          <li style="color:var(--purple-text);background:var(--purple-bg)">Calf raises (seated/standing, light) <span style="background:var(--purple-bg);color:var(--purple-text)">3 × 15</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon abs">🔥</div>
+          <span class="block-name abs">Abs</span>
+          <span class="block-time abs">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Russian twist (no weight) <span>4 × 16</span></li>
+          <li>Seated ab machine <span>4 × 15</span></li>
+          <li>Leg raises <span>4 × 15</span></li>
+          <li>Plank hold <span>4 × 35 sec</span></li>
+          <li>Crunches <span>3 × 20</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 5 -->
+  <div class="day-card" id="day5">
+    <div class="day-header" onclick="toggleDay('day5')">
+      <div><div class="day-title">Day 5 — Friday</div><div class="day-meta">Back & Arms + Cardio</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="day-body">
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon ex">💪</div>
+          <span class="block-name ex">Exercise</span>
+          <span class="block-time ex">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Seated cable row <span>3 × 12</span></li>
+          <li>Lat pulldown (wide grip) <span>3 × 12</span></li>
+          <li>Dumbbell bicep curl <span>3 × 12</span></li>
+          <li>Overhead tricep extension <span>3 × 10</span></li>
+          <li>Hammer curl <span>3 × 10</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon cardio">🚴</div>
+          <span class="block-name cardio">Cardio</span>
+          <span class="block-time cardio">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Treadmill incline walk (incline 3–4) <span>20 min</span></li>
+          <li>Elliptical (moderate) <span>15 min</span></li>
+          <li>Stationary cycle cool-down <span>5 min</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 6 -->
+  <div class="day-card" id="day6">
+    <div class="day-header" onclick="toggleDay('day6')">
+      <div><div class="day-title">Day 6 — Saturday</div><div class="day-meta">Light Legs + Cardio + Abs</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="day-body">
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon ex">💪</div>
+          <span class="block-name ex">Light Legs</span>
+          <span class="block-time ex">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li style="color:var(--purple-text);background:var(--purple-bg)">Seated leg curl (light weight) <span style="background:var(--purple-bg);color:var(--purple-text)">3 × 12</span></li>
+          <li style="color:var(--purple-text);background:var(--purple-bg)">Hip abduction machine (seated) <span style="background:var(--purple-bg);color:var(--purple-text)">3 × 15</span></li>
+          <li style="color:var(--purple-text);background:var(--purple-bg)">Calf raises (seated, light) <span style="background:var(--purple-bg);color:var(--purple-text)">3 × 15</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon cardio">🚴</div>
+          <span class="block-name cardio">Cardio</span>
+          <span class="block-time cardio">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Stationary cycle <span>20 min</span></li>
+          <li>Elliptical <span>15 min</span></li>
+          <li>Treadmill walk (flat) <span>5 min</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <div class="block-header">
+          <div class="block-icon abs">🔥</div>
+          <span class="block-name abs">Abs</span>
+          <span class="block-time abs">40 min</span>
+        </div>
+        <ul class="ex-list">
+          <li>Bicycle crunches <span>4 × 20</span></li>
+          <li>Leg raises <span>4 × 15</span></li>
+          <li>Russian twist <span>4 × 16</span></li>
+          <li>Plank hold <span>4 × 40 sec</span></li>
+          <li>Crunches <span>3 × 20</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 7 -->
+  <div class="rest-day">
+    <span style="font-size:20px">😴</span>
+    <div><strong style="color:var(--text)">Day 7 — Sunday · Full Rest</strong><br>Recovery, sleep, meal prep. Optional: 10 min gentle stretching.</div>
+  </div>
+
+  <!-- Diet Section -->
+  <div class="diet-section">
+    <div class="section-title">Daily diet plan</div>
+    <div class="tip-box">Target: 1,500–1,700 calories/day · High protein · Vegetarian · No sugar</div>
+
+    <div class="meal-card">
+      <div class="meal-time-header">On waking — 6:00–7:00 AM</div>
+      <div class="meal-row"><div class="meal-opt">Wake up</div><div class="meal-name">Warm water + juice of ½ lemon (no sugar)</div><div class="meal-kcal">~5 kcal</div></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-time-header">Breakfast — 7:30–8:30 AM</div>
+      <div class="meal-row"><div class="meal-opt">Option A</div><div class="meal-name">Moong dal chilla (2 pcs) + green chutney</div><div class="meal-kcal">~220 kcal</div></div>
+      <div class="meal-row"><div class="meal-opt">Option B</div><div class="meal-name">Oats + low-fat milk + banana + 5 almonds</div><div class="meal-kcal">~280 kcal</div></div>
+      <div class="meal-row"><div class="meal-opt">Option C</div><div class="meal-name">Paneer bhurji (less oil) + 1 whole wheat toast</div><div class="meal-kcal">~260 kcal</div></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-time-header">Mid-morning snack — 10:30 AM</div>
+      <div class="meal-row"><div class="meal-opt">Snack</div><div class="meal-name">1 fruit (apple/papaya/guava) + roasted chana</div><div class="meal-kcal">~120 kcal</div></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-time-header">Lunch — 1:00–2:00 PM</div>
+      <div class="meal-row"><div class="meal-opt">Roti</div><div class="meal-name">2 small whole wheat rotis</div><div class="meal-kcal">~160 kcal</div></div>
+      <div class="meal-row"><div class="meal-opt">Dal/sabzi</div><div class="meal-name">1 bowl moong/masoor/chana dal or paneer sabzi (less oil)</div><div class="meal-kcal">~200 kcal</div></div>
+      <div class="meal-row"><div class="meal-opt">Salad</div><div class="meal-name">Cucumber + tomato + onion + lemon</div><div class="meal-kcal">~30 kcal</div></div>
+      <div class="meal-row"><div class="meal-opt">Curd</div><div class="meal-name">1 small bowl low-fat curd</div><div class="meal-kcal">~60 kcal</div></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-time-header">Pre-gym snack — 4:00–4:30 PM</div>
+      <div class="meal-row"><div class="meal-opt">Pre-workout</div><div class="meal-name">1 banana + 5–6 almonds OR small bowl poha</div><div class="meal-kcal">~150 kcal</div></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-time-header">Post-gym — 7:00–7:30 PM</div>
+      <div class="meal-row"><div class="meal-opt">Recovery</div><div class="meal-name">Low-fat milk OR veg whey protein + 1 fruit</div><div class="meal-kcal">~180 kcal</div></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-time-header">Dinner — 8:00–9:00 PM</div>
+      <div class="meal-row"><div class="meal-opt">Option A</div><div class="meal-name">1 roti + 1 bowl dal + stir-fried veggies</div><div class="meal-kcal">~300 kcal</div></div>
+      <div class="meal-row"><div class="meal-opt">Option B</div><div class="meal-name">Vegetable soup + 2 multigrain rotis + salad</div><div class="meal-kcal">~280 kcal</div></div>
+      <div class="meal-row"><div class="meal-opt">Option C</div><div class="meal-name">Paneer bhurji (less oil) + 1 roti + salad</div><div class="meal-kcal">~320 kcal</div></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-time-header">Bedtime (optional) — 10:00 PM</div>
+      <div class="meal-row"><div class="meal-opt">Optional</div><div class="meal-name">1 glass warm turmeric milk (no sugar)</div><div class="meal-kcal">~60 kcal</div></div>
+    </div>
+
+    <div style="margin-top:1.5rem">
+      <div class="section-title" style="font-size:17px">Foods to avoid</div>
+      <div class="avoid-list">
+        <span class="avoid-tag red">White rice</span>
+        <span class="avoid-tag red">Maida / refined flour</span>
+        <span class="avoid-tag red">Fried snacks</span>
+        <span class="avoid-tag red">Sugar</span>
+        <span class="avoid-tag red">Cold drinks</span>
+        <span class="avoid-tag red">Packaged juices</span>
+        <span class="avoid-tag">Limit: full-fat paneer</span>
+        <span class="avoid-tag">Limit: ghee/butter (1 tsp/day)</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Drink 3–3.5 litres of water daily · Sleep 7–8 hrs · Weigh every Sunday morning · Consult a doctor for leg pain
+</footer>
+
+<script>
+  const btn = document.getElementById('themeToggle');
+  const html = document.documentElement;
+  let dark = false;
+  btn.addEventListener('click', () => {
+    dark = !dark;
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    btn.textContent = dark ? '🌙' : '☀️';
+  });
+  function toggleDay(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+</script>
+</body>
+</html>
